@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Danh sách</title>
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/container.css">
+</head>
+
+<body>
+    <%-include("./includes/navigation.ejs")%>
+        <div class="container">
+
+            <% 
+        data = JSON.stringify(data,null,4);
+        <!-- data = JSON.parse(data); -->
+        %>
+                <%=data%>
+
+        </div>
+
+        <script>
+            const dataField = document.querySelector(".container");
+
+            dataField.addEventListener('click', function() {
+
+                // dataField.select();
+                // dataField.setSelectionRange(0, 99999); /* For mobile devices */
+
+                navigator.clipboard.writeText(dataField.innerText);
+
+                alert("Đã copy vào bộ nhớ");
+            })
+        </script>
+</body>
+
+</html>

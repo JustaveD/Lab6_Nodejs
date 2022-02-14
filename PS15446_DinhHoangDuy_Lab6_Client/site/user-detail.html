@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Client | Lab5</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                <a href="/">
+                    <span>Client</span>
+                </a>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="../index.html" class="navbar__link"><span>Trang chủ</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./add.html" class="navbar__link"><span>Thêm User</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./list.html" class="navbar__link"><span>Người dùng</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./product.html" class="navbar__link"><span>Sản phẩm</span></a>
+                </li>
+                <li class="navbar__button">
+                    <a href="#" class="button"><span>Github</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="add">
+        <div class="add__container">
+            <form class="add__form">
+                <div class="form__control">
+                    <input type="text" name="fullName" id="fullName">
+                    <label for="">Họ và tên</label>
+                </div>
+                <div class="form__control">
+                    <input type="password" name="password" id="password">
+                    <label for="">Mật khẩu</label>
+                </div>
+                <div class="form__button">
+                    <button type="button" id="add-btn">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const addBtn = document.querySelector("#add-btn");
+        const form = document.querySelector(".add__form");
+        const fullName = document.querySelector("#fullName");
+        const password = document.querySelector("#password");
+
+        addBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            let data = {
+                fullName: fullName.value,
+                password: password.value
+            }
+
+            let url = "http://localhost:3000/api/add";
+            fetch(url, {
+                    method: "POST",
+
+                    body: JSON.stringify(data),
+
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+
+                })
+                .then(response => response.json())
+                .then(function(data) {
+                    form.reset();
+                    console.log(data);
+                })
+                .catch(err => console.log(err));
+        })
+    </script>
+</body>
+
+</html>

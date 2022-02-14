@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css" rel="stylesheet" />
+    <title>Client | Lab5</title>
+    <style>
+        .table__container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        .del-btn {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                <a href="/">
+                    <span>Client</span>
+                </a>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="../index.html" class="navbar__link"><span>Trang chủ</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./add.html" class="navbar__link"><span>Thêm User</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./list.html" class="navbar__link"><span>Người dùng</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./product.html" class="navbar__link"><span>Sản phẩm</span></a>
+                </li>
+                <li class="navbar__button">
+                    <a href="#" class="button"><span>Github</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="table__container">
+
+        <table class="table mb-4">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Họ và tên</th>
+                    <th scope="col">Mật khẩu</th>
+                    <th scope="col">Tool</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const tbody = document.querySelector("#table-body");
+        let url = "http://localhost:3000/api/list";
+        fetch(url)
+            .then(response => response.json())
+            .then(function(data) {
+                data.forEach(i => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td> ${i.user_id}</td>
+                            <td><a href="./detail.html?id=${i.user_id}">${i.fullName}</a></td>
+                        <td>${i.password}</td>
+                        <td><a href="./edit-user.html?id=${i.user_id}">Sửa</a><a href="#" data="${i.user_id}" class="del-btn">Xóa</a></td>
+                           </tr>
+                       
+                    `
+
+
+                })
+                const delBtn = document.querySelectorAll(".del-btn");
+                console.log(delBtn);
+                delBtn.forEach(i => {
+                    i.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        let choice = prompt("Bạn thật sự muốn xóa chứ?(y/n)");
+                        if (choice != 'y' && choice != 'Y') {
+                            return;
+                        }
+                        let idDel = i.getAttribute('data');
+
+                        let urlDel = `http://localhost:3000/api/delete/${idDel}`;
+
+                        fetch(urlDel, {
+                                method: "DELETE"
+                            })
+                            .then(response => response.json())
+                            .then(function(data) {
+                                location.reload();
+                            })
+                            .catch(err => console.log(err));
+                    })
+                })
+            })
+    </script>
+</body>
+
+</html>

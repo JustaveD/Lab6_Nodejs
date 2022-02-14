@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Client | Lab5</title>
+    <style>
+        .add {
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: #11998e;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #38ef7d, #11998e);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        
+        .add__container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+        
+        .add__form {
+            width: 500px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            transition: all .3s ease;
+            border: 1px solid rgb(17, 173, 17);
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        
+        .add__form .form__control {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            margin-bottom: 20px;
+            transition: all .3s ease;
+        }
+        
+        .add__form .form__control input {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            transition: all .3s ease;
+            outline: none;
+            border: 1px solid #ddd;
+        }
+        
+        .add__form .form__control input:focus+label span,
+        .add__form .form__control input:valid+label span {
+            top: 0;
+            left: 25px;
+            font-size: 12px;
+            color: brown;
+            padding: 10px 20px;
+            background-color: #fff;
+            font-weight: bold;
+        }
+        
+        .add__form .form__control input:focus,
+        .add__form .form__control input:valid {
+            border: 1px solid #38ef7d;
+        }
+        
+        .add__form .form__control label {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transition: all .3s ease;
+        }
+        
+        .add__form .form__control label span {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            transition: all .3s ease;
+        }
+        
+        .form__button {
+            width: 100%;
+        }
+        
+        #add-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            background-color: #11998e;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            color: #Fff;
+            transition: all .3s ease;
+        }
+        
+        #add-btn:hover {
+            color: #11998e;
+            background-color: #fff;
+            border: 1px solid #11998e;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                <a href="/">
+                    <span>Client</span>
+                </a>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="../index.html" class="navbar__link"><span>Trang chủ</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./add.html" class="navbar__link"><span>Thêm User</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./list.html" class="navbar__link"><span>Người dùng</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./product.html" class="navbar__link"><span>Sản phẩm</span></a>
+                </li>
+                <li class="navbar__button">
+                    <a href="#" class="button"><span>Github</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="add">
+        <div class="add__container">
+            <div class="add__container">
+                <form class="add__form">
+                    <div class="form__control">
+                        <input type="text" name="fullName" id="fullName" required>
+                        <label for=""><span>Họ và tên</span></label>
+                    </div>
+                    <div class="form__control">
+                        <input type="password" name="password" id="password" required>
+                        <label for=""><span>Mật khẩu</span></label>
+                    </div>
+                    <div class="form__button">
+                        <button type="button" id="add-btn">Lưu thay đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const addBtn = document.querySelector("#add-btn");
+        const form = document.querySelector(".add__form");
+        const fullName = document.querySelector("#fullName");
+        const password = document.querySelector("#password");
+
+        const queryString = window.location.search;
+
+        const urlParams = new URLSearchParams(queryString);
+
+        const id = urlParams.get('id')
+
+        let url = `http://localhost:3000/api/view/${id}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(function(data) {
+                fullName.value = data.fullName;
+                password.value = data.password;
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+
+        addBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            let data = {
+                fullName: fullName.value,
+                password: password.value
+            }
+
+            let url = `http://localhost:3000/api/edit/${id}`;
+            fetch(url, {
+                    method: "PUT",
+
+                    body: JSON.stringify(data),
+
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+
+                })
+                .then(response => response.json())
+                .then(function(data) {
+
+                    console.log(data);
+                })
+                .catch(err => console.log(err));
+        })
+    </script>
+</body>
+
+</html>

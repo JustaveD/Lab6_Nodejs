@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate API | Admin</title>
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+    <%- include("./includes/navigation.ejs")%>
+        <div class="search">
+            <div class="search__container">
+                <div class="form-control">
+                    <input type="text" name="search" id="search" required>
+                    <label for=""><span>Tìm kiếm</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="main__container">
+
+                <div class="main__add">
+                    <form class="main__form" action="/admin/edit/<%=data.idx%>" method="POST">
+                        <div class="form-control">
+                            <input type="text" name="word" required value="<%=data.word%>">
+                            <label for=""><span>Word</span></label>
+                        </div>
+                        <div class="form-control">
+
+                            <textarea name="detail" id="" cols="30" rows="10" required><%=data.detail%></textarea >
+                            <label for=""><span>Detail</span></label>
+                        </div>
+                        <button type="submit">
+                            Lưu thay đổi
+                        </button>
+                    </form>
+                </div>
+                <div class="main__add">
+                    <form class="main__form" action="/admin/add" method="post">
+                        <div class="form-control">
+                            <input type="text" name="word" required>
+                            <label for=""><span>Word</span></label>
+                        </div>
+                        <div class="form-control">
+                            <textarea name="detail" id="" cols="30" rows="10" required></textarea >
+                            <label for=""><span>Detail</span></label>
+                        </div>
+                        <button type="submit">
+                            Thêm
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+
+    <script>
+        const search = document.querySelector("#search");
+
+        search.addEventListener("keyup",function(e){
+            if(search.value != '' && e.keyCode == 13){
+                window.location = `http://localhost:3000/admin/search/${search.value}`;
+            }
+        })
+    </script>
+</body>
+
+</html>

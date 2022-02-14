@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Client | Lab5</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <div class="navbar__logo">
+                <a href="/">
+                    <span>Client</span>
+                </a>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="../index.html" class="navbar__link"><span>Trang chủ</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./add.html" class="navbar__link"><span>Thêm User</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./list.html" class="navbar__link"><span>Người dùng</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./product.html" class="navbar__link"><span>Sản phẩm</span></a>
+                </li>
+                <li class="navbar__button">
+                    <a href="#" class="button"><span>Github</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main id="content">
+        <div class="wraper">
+
+            <div class="book-item">
+                <div class="image">
+                    <img src="../images/1.jpg" alt="">
+                </div>
+                <p class="title">
+                    Tôi yêu em
+                </p>
+                <span class="price">20 000 vnd</span>
+                <a href="/shop/">Xem chi tiết</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let url = "http://localhost:3000/api/product";
+        let wrapper = document.querySelector(".wraper");
+        fetch(url)
+            .then(response => response.json())
+            .then(function(data) {
+
+                data.forEach(i => {
+                    wrapper.innerHTML += `<div class="book-item">
+                <div class="image">
+                    <img src="../images/${i.imageUrl}" alt="">
+                </div>
+                <p class="title">
+                    ${i.book_name}
+                </p>
+                <span class="price">${i.price} vnd</span>
+                <a href="/shop/">Xem chi tiết</a>
+            </div>`
+                })
+            })
+            .catch(err => console.log(err));
+    </script>
+</body>
+
+</html>

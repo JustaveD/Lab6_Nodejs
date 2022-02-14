@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Online API for Viet Nam administrative divisions; API tỉnh thành Việt Nam">
+    <meta name="keywords" content="api, online, tool, vietnam, open, data, province, administrative, divisions, tỉnh thành, quận huyện, phường xã">
+    <meta property="og:title" content="Online API for Viet Nam administrative divisions">
+    <meta property="og:image" content="https://provinces.open-api.vn/img/vn-hsts.png">
+    <meta name="google-site-verification" content="qO-FwiRjzGujttPltH5NKj4flEZry-nZgd8YtCgYhnk">
+
+    <link rel="stylesheet" href="/index_files/tailwind.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link href="/index_files/css2.css" rel="stylesheet">
+    <title>Translate API | Docs</title>
+    <style>
+        body {
+            font-family: 'Niramit', sans-serif;
+        }
+        
+        html {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col" lang="vi">
+    <%-include("./includes/navigation.ejs")%>
+        <main class="text-gray-600 body-font flex-1" style="padding-bottom: 40px; background: #11998e;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        ">
+
+            <div class="prose container mx-auto mt-8 px-2">
+                <p>Ví dụ với <a href="https://www.postman.com/downloads/">Postman</a>:</p>
+                <h4 id="liet-ke">Dịch từ "night" tiếng Anh ra tiếng Việt:</h4>
+                <pre style="background-color:#2b303b;"><code class="language-sh" data-lang="sh"><span style="color:#bf616a;">http </span><span style="color:#c0c5ce;"> http://localhost:3000/translator/from/to/word
+</span></code></pre>
+                <p>Request:</p>
+                <pre style="background-color:#2b303b;"><code class="language-http" data-lang="http"><span style="color:#c0c5ce;">GET /translator/ENG/VN/night
+Host: http://localhost:3000
+</span></code></pre>
+                <p>Response:</p>
+                <pre style="background-color:#2b303b;"><code class="language-http" data-lang="http"><span style="color:#c0c5ce;">HTTP/-v 200 OK
+Content-Type: application/json
+[
+    {
+        "detail": "<C><F><I><N><Q>@night /nait/<br />*  danh từ<br />- đêm, tối, cảnh tối tăm<br />=the whole night+ suốt đêm, cả đêm<br />=by night+ về đêm<br />=at night+ ban đêm<br />=night after night+ đêm đêm<br />=night and day+ suốt ngày đêm không dứt<br />=o' nights+ (thông tục) về đêm, ban đêm<br />=tomorrow night+ đêm mai<br />=at (in the) deal of night+ lúc nửa đêm, lúc đêm khuya thanh vắng<br />=as black (dark) as night+ tôi như đêm<br />=a dirty night+ một đêm mưa bão<br />=to have (pass) a good night+ đêm ngủ ngon<br />=to have (pass) a bad night+ đêm mất ngủ, một đêm ngủ không yên<br />=night out+ tối được nghỉ, tối rảnh việc (người làm); (một) đêm đi chơi không về nhà<br />=to make a night of it+ vui đùa, chơi bời, rượu chè cả đêm<br />=to turn night into day+ lấy đêm làm ngày<br />=the night of ignorance+ cảnh ngu dốt tối tăm</Q></N></I></F></C>"
+    }
+]
+</span></code></pre>
+                <h4 id="liet-ke">Dịch từ "gấu trúc" tiếng Việt ra tiếng Anh:</h4>
+                <pre style="background-color:#2b303b;"><code class="language-sh" data-lang="sh"><span style="color:#bf616a;">http -v</span><span style="color:#c0c5ce;"> http://localhost:3000/translator/from/to/word
+</span></code></pre>
+                <p>Request:</p>
+                <pre style="background-color:#2b303b;"><code class="language-http" data-lang="http"><span style="color:#c0c5ce;">GET /translator/VN/ENG/gấu%20trúc
+Host: http://localhost:3000
+</span></code></pre>
+                <p>Response:</p>
+                <pre style="background-color:#2b303b;"><code class="language-http" data-lang="http"><span style="color:#c0c5ce;">HTTP/-v 200 OK
+Content-Type: application/json
+[
+    {
+        "word": "coon"
+    },
+    {
+        "word": "coons"
+    },
+    {
+        "word": "kinkajou"
+    },
+    {
+        "word": "kinkajous"
+    },
+    {
+        "word": "panda"
+    },
+    {
+        "word": "pandas"
+    },
+    {
+        "word": "raccoon"
+    },
+    {
+        "word": "raccoons"
+    },
+    {
+        "word": "racoon"
+    }
+]
+</span></code></pre></div>
+        </main>
+
+
+
+</body>
+
+</html>
